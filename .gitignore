@@ -1,14 +1,22 @@
 # ======================
-# Node modules
+# Dependencies
 # ======================
 node_modules/
 client/node_modules/
 server/node_modules/
 
 # ======================
+# Environment variables (Secrets)
+# ======================
+.env
+.env.*
+client/.env
+server/.env
+
+# ======================
 # Logs
 # ======================
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -20,17 +28,15 @@ yarn-error.log*
 dist/
 build/
 client/build/
+server/build/
 .next/
 out/
 
 # ======================
-# Environment variables
+# Cache
 # ======================
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.cache/
+.parcel-cache/
 
 # ======================
 # OS files
@@ -45,16 +51,10 @@ Thumbs.db
 .idea/
 
 # ======================
-# Misc
+# Temporary files
 # ======================
-*.txt
-!README.md
-
-# ======================
-# Cache
-# ======================
-.cache/
-.parcel-cache/
+*.tmp
+*.temp
 
 # ======================
 # Uploads / temp files (optional)
@@ -62,6 +62,8 @@ Thumbs.db
 uploads/
 tmp/
 temp/
+photo/uploads/
+photo/temp/
 
 # ======================
 # Coverage
@@ -69,7 +71,13 @@ temp/
 coverage/
 
 # ======================
-# Lock files (optional - keep if team project)
+# Misc
+# ======================
+*.txt
+!README.md
+
+# ======================
+# Lock files (optional)
 # ======================
 # package-lock.json
 # yarn.lock
