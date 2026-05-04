@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-const API = `${BASE_URL}/api`;
+const API = BASE_URL;
 
 export function getAuthToken() {
   return localStorage.getItem("authToken");
