@@ -65,6 +65,22 @@ export default function Landing() {
     if (user) navigate(getHomePathForRole(user.role), { replace: true });
   }, [user, navigate]);
 
+  const founder = {
+    name: "Yash Kushwaha",
+    degree: "BCA final year student",
+    role: "Founder & Community Lead",
+    bio: "Building a learner-first community focused on clear growth, practical skills, and daily momentum."
+  };
+
+  const coreTeam = [
+    { name: "Akash Awasthi", branch: "Btech(DS)", role: "Design & Creative Lead" },
+    { name: "Anshu Pandey", branch: "Btech(DS)", role: "Community Manager" },
+    { name: "Gaurav Sharma", branch: "Btech(CSE-AI)", role: "Technical Lead" },
+    { name: "Hardik Tripathi", branch: "Btech(EE)", role: "Event & Collaboration Lead" },
+    { name: "Prateek Kumar", branch: "B.A. Journalism and Mass Communication", role: "Social Media & Branding Lead" },
+    { name: "Vishesh Katiyar", branch: "BCA", role: "Content Lead" }
+  ];
+
   return (
     <div className="min-h-screen bg-lightBg">
       <div className="relative overflow-hidden">
@@ -181,6 +197,48 @@ export default function Landing() {
               <FeatureCard title="Personalized Roadmaps" desc="Follow a plan that matches your goals and progress." icon={<RoadmapIcon />} />
               <FeatureCard title="Daily Tasks" desc="Small tasks you can complete in minutes. Build momentum daily." icon={<TasksIcon />} />
               <FeatureCard title="Community Support" desc="Join sessions and connect with students who grow together." icon={<CommunityIcon />} />
+            </div>
+          </section>
+
+          <section className="mt-20">
+            <div className="mb-8 text-center">
+              <h2 className="text-3xl font-black tracking-[-0.05em] text-slate-900 md:text-5xl">WiseGrove Learners Community</h2>
+              <p className="mt-3 text-lg text-slate-600">The Nextgen Learners</p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              <div className="rounded-[28px] border border-cyan-300/70 bg-gradient-to-br from-cyan-400/25 via-sky-500/20 to-blue-600/20 p-5 shadow-[0_0_35px_rgba(34,211,238,0.25)] ring-1 ring-cyan-200/80">
+                <div className="mb-5 rounded-2xl border border-cyan-300/80 bg-slate-950/10 px-3 py-2 text-center text-xs font-black uppercase tracking-[0.28em] text-cyan-700">
+                  Founder
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-black tracking-[-0.06em] text-slate-900">{founder.name}</div>
+                  <div className="mt-2 text-sm font-medium text-slate-600">{founder.degree}</div>
+                  <div className="mt-4 inline-flex items-center rounded-full border border-cyan-300/80 bg-white/60 px-3 py-1.5 text-sm font-bold text-cyan-800">
+                    {founder.role}
+                  </div>
+                  <p className="mt-4 text-sm leading-relaxed text-slate-700">{founder.bio}</p>
+                </div>
+              </div>
+
+              {coreTeam.map((member) => (
+                <div key={member.name} className="rounded-[28px] border border-cyan-300/70 bg-gradient-to-br from-cyan-400/15 via-sky-500/10 to-blue-600/10 p-5 shadow-[0_0_24px_rgba(34,211,238,0.12)] ring-1 ring-cyan-200/70 transition hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(34,211,238,0.18)]">
+                  <div className="mb-5 rounded-2xl border border-cyan-300/80 bg-white/10 px-3 py-2 text-center text-[10px] font-black uppercase tracking-[0.22em] text-cyan-700">
+                    Core Team
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-black tracking-[-0.05em] text-slate-900">{member.name}</div>
+                    <div className="mt-2 text-sm text-slate-600">{member.branch}</div>
+                    <div className="mt-3 inline-flex items-center rounded-full border border-cyan-300/80 bg-white/60 px-3 py-1.5 text-sm font-semibold text-slate-700">
+                      {member.role}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center text-3xl font-black tracking-[-0.06em] text-slate-900 md:text-5xl">
+              Learning • Building • Growing Together
             </div>
           </section>
 

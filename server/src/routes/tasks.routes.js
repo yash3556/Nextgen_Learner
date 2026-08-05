@@ -218,17 +218,30 @@ router.get("/week", async (req, res) => {
     const docs = await DailyTask.find({ user: userId, date: { $in: dates } }).lean();
     const byDate = new Map(docs.map((doc) => [doc.date, doc]));
 
+    const days = dates.map((date) => {
+      const doc = byDate.get(date);
+      const tasks = Array.isArray(doc?.tasks) ? doc.tasks : [];
+      const total = tasks.length;
+      const completed = tasks.filter((task) => task.completed).length;
+
+      return {
+        date,
+        label: new Date(`${date}T00:00:00`).toLocaleDateString("en-US", { weekday: "short" }),
+        total,
+        completed,
+        percent: total ? Math.round((completed / total) * 100) : 0
+      };
+    });
+
     let completed = 0;
     let total = 0;
 
-    dates.forEach((date) => {
-      const doc = byDate.get(date);
-      if (!doc) return;
-      total += (doc.tasks || []).length;
-      completed += (doc.tasks || []).filter((task) => task.completed).length;
+    days.forEach((day) => {
+      total += day.total;
+      completed += day.completed;
     });
 
-    return res.json({ completed, total, dates });
+    return res.json({ completed, total, dates, days });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);

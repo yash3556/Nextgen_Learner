@@ -124,7 +124,15 @@ export default function Dashboard() {
     if (!tasks.length) return 0;
     return Math.round((completedCount / tasks.length) * 100);
   }, [tasks.length, completedCount]);
-  const streak = useMemo(() => Math.max(1, Math.min(21, Math.round(progressPercent / 5) + 2)), [progressPercent]);
+  const streak = useMemo(() => {
+    if (!weeklyProgress.length) return 0;
+    let current = 0;
+    for (let i = weeklyProgress.length - 1; i >= 0; i -= 1) {
+      if (weeklyProgress[i]?.value > 0) current += 1;
+      else break;
+    }
+    return current;
+  }, [weeklyProgress]);
   const interviewScore = useMemo(() => {
     if (!tasks.length) return 0;
     return Math.max(0, Math.min(100, Math.round(progressPercent * 0.9)));
@@ -181,8 +189,21 @@ export default function Dashboard() {
         if (weekResult.status === "fulfilled") {
           const completed = Number(weekResult.value.completed || 0);
           const total = Number(weekResult.value.total || 0);
-          const weeklyPercent = total > 0 ? Math.round((completed / total) * 100) : progressPercent;
-          setWeeklyProgress(buildWeeklySeries(weeklyPercent || 45));
+          const dailySeries = Array.isArray(weekResult.value.days) && weekResult.value.days.length
+            ? weekResult.value.days.map((day) => ({
+                label: day.label || new Date(`${day.date}T00:00:00`).toLocaleDateString("en-US", { weekday: "short" }),
+                value: day.total ? Math.max(0, Math.min(100, Math.round((day.completed / day.total) * 100))) : 0,
+                total: day.total,
+                completed: day.completed
+              }))
+            : [];
+
+          if (dailySeries.length) {
+            setWeeklyProgress(dailySeries);
+          } else {
+            const weeklyPercent = total > 0 ? Math.round((completed / total) * 100) : progressPercent;
+            setWeeklyProgress(buildWeeklySeries(weeklyPercent || 45));
+          }
         }
       } catch {
         // keep default mock state
