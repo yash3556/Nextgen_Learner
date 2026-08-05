@@ -488,7 +488,7 @@ export default function Profile() {
         <>
           <div className="grid grid-cols-1 gap-5 xl:grid-cols-12">
             <div className="space-y-5 xl:col-span-7">
-              <Section title="Learning Focus" subtitle="These are the areas NextZen can build on right away.">
+              <Section title="Learning Focus" subtitle="These are the areas WiseGrove can build on right away.">
                 <div className="space-y-5">
                   <div>
                     <div className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Technical skills</div>

@@ -7,8 +7,8 @@ export default function CheckboxPill({ label, checked, onChange }) {
       onClick={() => onChange?.(!checked)}
       className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
         checked
-          ? "bg-gradient-to-r from-primary to-secondary text-white border-transparent shadow-glow tick-pop"
-          : "bg-white/60 text-slate-700 border-white/70 hover:bg-white/80"
+          ? "border-transparent bg-[#2E6A4F] text-white shadow-sm tick-pop"
+          : "border-[#D9DED7] bg-white/80 text-[#1D241F] hover:bg-[#F2F1EC] dark:border-[#303833] dark:bg-[#202723] dark:text-[#F3F4F1] dark:hover:bg-[#1B211E]"
       }`}
       aria-pressed={checked}
     >

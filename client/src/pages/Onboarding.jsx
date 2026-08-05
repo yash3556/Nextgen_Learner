@@ -129,7 +129,13 @@ export default function Onboarding() {
       <div className="px-4 py-10 mx-auto max-w-4xl">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <div className="text-sm font-semibold text-primary">NextZen Learner</div>
+            <div className="flex items-center gap-3">
+              <img src="/logo.png" alt="WiseGrove Learners Community" className="h-12 w-12 object-contain" />
+              <div className="flex items-end gap-1 leading-none">
+                <span className="text-base font-black tracking-[-0.06em] text-slate-900">Wise</span>
+                <span className="text-base font-black tracking-[-0.06em] text-primary">Grove</span>
+              </div>
+            </div>
             <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mt-1">Get started</h1>
             <p className="text-sm text-slate-600 mt-2">Takes about 2 minutes. Clear, simple, and motivational.</p>
           </div>

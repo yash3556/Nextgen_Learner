@@ -26,13 +26,11 @@ export default function Sidebar() {
 
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 border-r border-slate-200 bg-white/95 px-5 py-6 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90 lg:flex lg:flex-col">
-      <div className="mb-8 flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-white shadow-soft">
-          <Sparkles className="h-5 w-5" />
-        </div>
+      <div className="mb-8 flex flex-col items-center justify-center gap-2 text-center">
+        <img src="/logo.png" alt="WiseGrove Learners Community" className="h-20 w-auto object-contain" />
         <div>
-          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">NextZen Community</p>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Student Workspace</p>
+          <p className="text-lg font-black tracking-[-0.06em] text-slate-900 dark:text-slate-100">WiseGrove</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Learners Community</p>
         </div>
       </div>
 

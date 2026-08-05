@@ -2,9 +2,9 @@ import React from "react";
 
 export default function Card({ children, className = "", variant = "light" }) {
   const variants = {
-    light: "border-slate-200/80 bg-white dark:border-slate-800 dark:bg-slate-900",
-    dark: "border-slate-800 bg-slate-900 text-slate-100",
-    subtle: "border-slate-200/70 bg-slate-50/90 dark:border-slate-800 dark:bg-slate-900/60"
+    light: "border-[#D9DED7] bg-white dark:border-[#303833] dark:bg-[#202723]",
+    dark: "border-[#303833] bg-[#202723] text-[#F3F4F1]",
+    subtle: "border-[#D9DED7] bg-[#F2F1EC]/90 dark:border-[#303833] dark:bg-[#1B211E]/80"
   };
 
   return (

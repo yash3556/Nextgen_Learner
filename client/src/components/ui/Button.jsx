@@ -8,17 +8,17 @@ export default function Button({
   ...props
 }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400/40 disabled:cursor-not-allowed disabled:opacity-60";
+    "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition duration-200 focus:outline-none focus:ring-2 focus:ring-[#2E6A4F]/20 disabled:cursor-not-allowed disabled:opacity-60";
 
   const variants = {
     primary:
-      "bg-blue-600 text-white shadow-sm hover:-translate-y-0.5 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400",
+      "bg-[#2E6A4F] text-white shadow-sm hover:-translate-y-0.5 hover:bg-[#255840] dark:bg-[#5FA377] dark:hover:bg-[#73BE8D]",
     secondary:
-      "bg-violet-600 text-white shadow-sm hover:-translate-y-0.5 hover:bg-violet-500 dark:bg-violet-500 dark:hover:bg-violet-400",
+      "border border-[#D9DED7] bg-[#F2F1EC] text-[#1D241F] shadow-sm hover:-translate-y-0.5 hover:bg-[#E9E7E1] dark:border-[#303833] dark:bg-[#1B211E] dark:text-[#F3F4F1] dark:hover:bg-[#202723]",
     ghost:
-      "border border-slate-200 bg-white text-slate-700 hover:-translate-y-0.5 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
+      "border border-[#D9DED7] bg-white text-[#1D241F] hover:-translate-y-0.5 hover:bg-[#F2F1EC] dark:border-[#303833] dark:bg-[#202723] dark:text-[#F3F4F1] dark:hover:bg-[#1B211E]",
     danger:
-      "border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-200"
+      "border border-[#E7C7C7] bg-[#F7EFEF] text-[#B84E4E] hover:bg-[#F3E4E4] dark:border-[#5A3A3A] dark:bg-[#2A1D1D] dark:text-[#D96B6B]"
   };
 
   return (

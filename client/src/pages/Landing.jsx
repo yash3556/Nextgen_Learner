@@ -73,13 +73,11 @@ export default function Landing() {
 
         <div className="px-4 pt-10 pb-16 mx-auto max-w-6xl">
           <header className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
-                <span className="text-white font-bold">N</span>
-              </div>
-              <div>
-                <div className="font-bold text-slate-900 leading-tight">NextZen Learner</div>
-                <div className="text-xs text-slate-500 -mt-0.5">Improve skills with AI guidance</div>
+            <div className="flex items-center gap-4">
+              <img src="/logo.png" alt="WiseGrove Learners Community" className="h-24 w-auto object-contain md:h-32" />
+              <div className="hidden md:block">
+                <div className="text-3xl font-black tracking-[-0.06em] text-slate-900">WiseGrove</div>
+                <div className="text-base font-medium tracking-[-0.04em] text-slate-600">Learners Community</div>
               </div>
             </div>
 
@@ -216,7 +214,7 @@ export default function Landing() {
                 Built for students. Clean guidance. Daily motivation.
               </div>
               <div className="text-sm font-semibold text-slate-700">
-                NextZen Learner
+                WiseGrove Learners Community
               </div>
             </div>
           </footer>
