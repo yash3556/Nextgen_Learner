@@ -39,8 +39,29 @@ function signAuthToken(user) {
   );
 }
 
+function signPasswordResetToken(user) {
+  return jwt.sign(
+    {
+      sub: String(user._id),
+      purpose: "password-reset"
+    },
+    getJwtSecret(),
+    {
+      expiresIn: process.env.PASSWORD_RESET_EXPIRES_IN || "30m"
+    }
+  );
+}
+
 function verifyAuthToken(token) {
   return jwt.verify(token, getJwtSecret());
+}
+
+function verifyPasswordResetToken(token) {
+  const payload = jwt.verify(token, getJwtSecret());
+  if (payload?.purpose !== "password-reset") {
+    throw new Error("Invalid password reset token");
+  }
+  return payload;
 }
 
 function sanitizeUser(user) {
@@ -56,5 +77,7 @@ module.exports = {
   hashPassword,
   sanitizeUser,
   signAuthToken,
-  verifyAuthToken
+  signPasswordResetToken,
+  verifyAuthToken,
+  verifyPasswordResetToken
 };

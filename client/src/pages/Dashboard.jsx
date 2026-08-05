@@ -30,12 +30,6 @@ const DEFAULT_TASKS = [
 
 const DEFAULT_SESSIONS = [];
 
-const DEFAULT_BADGES = [
-  { id: "b1", title: "7 Day Streak", tone: "blue" },
-  { id: "b2", title: "First Project", tone: "purple" },
-  { id: "b3", title: "Top Contributor", tone: "emerald" }
-];
-
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 function motivationalText(progress) {
@@ -123,9 +117,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState(DEFAULT_TASKS);
   const [sessions, setSessions] = useState(DEFAULT_SESSIONS);
-  const [streak, setStreak] = useState(12);
-  const [interviewScore, setInterviewScore] = useState(84);
-  const [badges] = useState(DEFAULT_BADGES);
   const [weeklyProgress, setWeeklyProgress] = useState(buildWeeklySeries(74));
 
   const completedCount = useMemo(() => tasks.filter((task) => task.completed).length, [tasks]);
@@ -133,6 +124,18 @@ export default function Dashboard() {
     if (!tasks.length) return 0;
     return Math.round((completedCount / tasks.length) * 100);
   }, [tasks.length, completedCount]);
+  const streak = useMemo(() => Math.max(1, Math.min(21, Math.round(progressPercent / 5) + 2)), [progressPercent]);
+  const interviewScore = useMemo(() => {
+    if (!tasks.length) return 0;
+    return Math.max(0, Math.min(100, Math.round(progressPercent * 0.9)));
+  }, [progressPercent, tasks.length]);
+  const badges = useMemo(() => {
+    const nextBadges = [];
+    if (progressPercent >= 35) nextBadges.push({ id: "b1", title: "Momentum Builder", tone: "blue" });
+    if (progressPercent >= 60) nextBadges.push({ id: "b2", title: "Consistency Spark", tone: "purple" });
+    if (progressPercent >= 80) nextBadges.push({ id: "b3", title: "Weekly Win", tone: "emerald" });
+    return nextBadges;
+  }, [progressPercent]);
 
   useEffect(() => {
     let alive = true;
@@ -185,8 +188,6 @@ export default function Dashboard() {
         // keep default mock state
       } finally {
         if (alive) {
-          setInterviewScore((prev) => (prev < 50 ? 76 : prev));
-          setStreak((prev) => (prev < 1 ? 7 : prev));
           window.setTimeout(() => {
             if (alive) setLoading(false);
           }, 450);
@@ -251,7 +252,7 @@ export default function Dashboard() {
 
         <div className="mt-5 grid grid-cols-2 gap-3 md:max-w-sm">
           <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-3 dark:border-blue-500/30 dark:bg-blue-500/10">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700 dark:text-blue-200">Streak</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700 dark:text-blue-200">Momentum</p>
             <p className="mt-1 text-lg font-bold text-slate-900 dark:text-slate-100">{streak} days</p>
           </div>
           <div className="rounded-xl border border-violet-200 bg-violet-50/80 p-3 dark:border-violet-500/30 dark:bg-violet-500/10">
@@ -271,8 +272,8 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard label="Progress %" value={`${progressPercent}%`} icon={Percent} tone="blue" hint="This week" />
           <StatCard label="Tasks Completed" value={`${completedCount}/${tasks.length}`} icon={ClipboardCheck} tone="emerald" hint="Today" />
-          <StatCard label="Interview Score" value={`${interviewScore}%`} icon={Goal} tone="purple" hint="Latest mock" />
-          <StatCard label="Daily Streak" value={`${streak} days`} icon={Flame} tone="amber" hint="Consistency" />
+          <StatCard label="Learning Score" value={`${interviewScore}%`} icon={Goal} tone="purple" hint="From completion" />
+          <StatCard label="Daily Streak" value={`${streak} days`} icon={Flame} tone="amber" hint="Momentum" />
         </div>
       )}
 
@@ -331,7 +332,7 @@ export default function Dashboard() {
           {loading ? <Skeleton className="h-52" /> : <BarChart data={weeklyProgress} tone="blue" />}
         </SectionCard>
 
-        <SectionCard title="Gamification" subtitle="Unlock badges by staying consistent and shipping projects.">
+        <SectionCard title="Momentum" subtitle="Progress-based badges that reflect your current streak and consistency.">
           {loading ? (
             <div className="grid grid-cols-2 gap-2">
               {[0, 1, 2].map((item) => (
@@ -347,8 +348,8 @@ export default function Dashboard() {
           ) : (
             <EmptyState
               icon={Trophy}
-              title="No badges unlocked"
-              description="Complete tasks and projects to unlock your first badge."
+              title="No momentum badges yet"
+              description="Finish more daily tasks to unlock your first badge."
             />
           )}
         </SectionCard>

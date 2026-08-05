@@ -122,33 +122,34 @@ export default function Landing() {
             <div className="relative">
               <div className="glass rounded-3xl p-6 shadow-soft border border-white/70 floaty">
                 <div className="flex items-center justify-between">
-                  <div className="text-sm font-semibold text-slate-800">Your next 7 days</div>
+                  <div className="text-sm font-semibold text-slate-800">Learning sprint</div>
                   <div className="text-xs rounded-full px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white shadow-soft">
-                    Personalized
+                    Weekly focus
                   </div>
                 </div>
                 <div className="mt-5 space-y-3">
-                  {["Speak + improve clarity", "Solve 2 problems", "Learn small Python drills", "Review & plan", "Practice Q&A"].map(
-                    (t, i) => (
-                      <div key={t} className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-white/70 flex items-center justify-center border border-white/80">
-                          <span className="text-primary font-bold">{i + 1}</span>
-                        </div>
-                        <div className="text-sm font-semibold text-slate-800">{t}</div>
-                      </div>
-                    )
-                  )}
+                  {[
+                    { title: "Strength building", detail: "One skill block every day" },
+                    { title: "Community check-in", detail: "Join one peer discussion" },
+                    { title: "Project momentum", detail: "Ship one small milestone" }
+                  ].map((item) => (
+                    <div key={item.title} className="rounded-2xl border border-white/80 bg-white/65 p-3">
+                      <div className="text-sm font-semibold text-slate-800">{item.title}</div>
+                      <div className="mt-1 text-xs text-slate-600">{item.detail}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-4">
+
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Card className="transition hover:-translate-y-1" variant="light">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-xs font-semibold text-slate-500">Streak</div>
-                      <div className="text-2xl font-bold text-slate-900">5</div>
+                      <div className="text-xs font-semibold text-slate-500">Community</div>
+                      <div className="text-2xl font-bold text-slate-900">12+</div>
                     </div>
                     <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 flex items-center justify-center text-primary">
-                      <SparkIcon />
+                      <CommunityIcon />
                     </div>
                   </div>
                 </Card>
@@ -156,7 +157,7 @@ export default function Landing() {
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="text-xs font-semibold text-slate-500">Focus</div>
-                      <div className="text-2xl font-bold text-slate-900">DSA</div>
+                      <div className="text-xl font-bold text-slate-900">Practice + AI</div>
                     </div>
                     <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 flex items-center justify-center text-primary">
                       <RoadmapIcon />

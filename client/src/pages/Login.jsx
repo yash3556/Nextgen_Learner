@@ -46,9 +46,7 @@ export default function Login() {
         <div className="flex items-start justify-between gap-6">
           <div>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
-                <span className="text-white font-bold">N</span>
-              </div>
+              <img src="/logo.png" alt="WiseGrove Learners Community" className="h-14 w-auto object-contain" />
               <div>
                 <div className="font-bold text-slate-900">Welcome back</div>
                 <div className="text-sm text-slate-600">Login to continue your daily improvement.</div>
@@ -93,8 +91,11 @@ export default function Login() {
                 {busy ? "Signing in..." : "Sign In"}
               </Button>
 
-              <div className="text-xs text-slate-500">
-                There is no separate admin-login page here. Admin accounts use this same form.
+              <div className="flex items-center justify-between gap-3 text-xs text-slate-500">
+                <button type="button" onClick={() => navigate("/forgot-password")} className="font-semibold text-primary hover:underline">
+                  Forgot password?
+                </button>
+                <span>Admin and student accounts use this same login form.</span>
               </div>
             </form>
           </Card>

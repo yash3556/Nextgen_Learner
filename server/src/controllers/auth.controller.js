@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const { toTrimmedArray, toStringMaybe } = require("../utils/normalize");
-const { comparePassword, hashPassword, sanitizeUser, signAuthToken } = require("../utils/auth");
+const { comparePassword, hashPassword, sanitizeUser, signAuthToken, signPasswordResetToken, verifyPasswordResetToken } = require("../utils/auth");
 const {
   buildExactCaseInsensitiveRegex,
   isStrongEnoughPassword,
@@ -133,6 +133,71 @@ async function login(req, res) {
   }
 }
 
+async function requestPasswordReset(req, res) {
+  try {
+    const identifier = normalizeText(req.body?.identifier || req.body?.email || req.body?.userId);
+    if (!identifier) {
+      return res.status(400).json({ message: "Please enter your email or user ID." });
+    }
+
+    const user = await User.findOne({
+      $or: [{ email: normalizeEmail(identifier) }, { userId: buildExactCaseInsensitiveRegex(identifier) }]
+    });
+
+    if (!user) {
+      return res.status(200).json({
+        message: "If an account exists for that email or user ID, reset instructions are ready."
+      });
+    }
+
+    const resetToken = signPasswordResetToken(user);
+    const baseFrontEndUrl = normalizeText(process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/+$/, "");
+    const resetUrl = `${baseFrontEndUrl}/reset-password?token=${encodeURIComponent(resetToken)}`;
+
+    return res.json({
+      message: "Password reset link ready. Use it to create a new password.",
+      resetToken,
+      resetUrl
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    return res.status(500).json({ message: "Failed to request password reset", error: error?.message });
+  }
+}
+
+async function resetPassword(req, res) {
+  try {
+    const token = normalizeText(req.body?.token);
+    const password = String(req.body?.password ?? "");
+
+    if (!token) {
+      return res.status(400).json({ message: "Password reset token is required." });
+    }
+
+    if (!password || !isStrongEnoughPassword(password)) {
+      return res.status(400).json({ message: "Password must be at least 8 characters long" });
+    }
+
+    const payload = verifyPasswordResetToken(token);
+    const user = await User.findById(payload.sub);
+    if (!user) {
+      return res.status(404).json({ message: "This reset link is no longer valid." });
+    }
+
+    user.password = await hashPassword(password);
+    await user.save();
+
+    return res.json({
+      message: "Password updated successfully. You can sign in with your new password."
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    return res.status(400).json({ message: "This reset link is invalid or has expired." });
+  }
+}
+
 async function logout(req, res) {
   return res.json({ message: "Logged out" });
 }
@@ -211,4 +276,4 @@ async function updateMe(req, res) {
   }
 }
 
-module.exports = { getMe, login, logout, register, updateMe };
+module.exports = { getMe, login, logout, register, updateMe, requestPasswordReset, resetPassword };
