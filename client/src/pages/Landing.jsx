@@ -73,7 +73,7 @@ export default function Landing() {
   };
 
   const coreTeam = [
-    { name: "Akash Awasthi", branch: "Btech(DS)", role: "Design & Creative Lead" },
+    { name: "Akarsh Awasthi", branch: "Btech(DS)", role: "Design & Creative Lead" },
     { name: "Ashraf Ali", branch: "BCA", role: "Technical Lead" },
     { name: "Hardik Tripathi", branch: "Btech(EE)", role: "Event & Collaboration Lead" },
     { name: "Prateek Kumar", branch: "B.A. Journalism and Mass Communication", role: "Social Media & Branding Lead" },
